@@ -11,4 +11,6 @@
     <string name="status_editing">Editing</string>
     <string name="status_locked">Locked</string>
     <string name="button_show">Show</string>
+    <string name="toast_saved">Saved successfully!</string>
+    <string name="toast_missing_prefix">Missing:</string>
 </resources>

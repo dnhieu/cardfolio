@@ -99,6 +99,7 @@ fun Cardfolio() {
     var age by remember { mutableStateOf("") }
     val outlineColor = MaterialTheme.colorScheme.surface
     var isEditing by remember { mutableStateOf(true) }
+    val context = LocalContext.current
 
     Box(
         contentAlignment = Alignment.Center,
@@ -220,7 +221,28 @@ fun Cardfolio() {
                     Spacer(Modifier.width(12.dp))
 
                     Button(
-                        onClick = { isEditing = false },
+                        onClick = {
+                            val missing = buildList {
+                                if (name.isBlank()) add ("Name")
+                                if (hobby.isBlank()) add ("Hobby")
+                                if (age.isBlank()) add ("Age")
+                            }
+
+                            if (missing.isNotEmpty()) {
+                                Toast.makeText(
+                                    context,
+                                    "Missing: ${missing.joinToString(", ")}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else{
+                                isEditing = false
+                                Toast.makeText(
+                                    context,
+                                    "Saved successfully!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                                  },
                         enabled = isEditing
                     ) {
                         Icon(Icons.Default.Check, contentDescription = null)
