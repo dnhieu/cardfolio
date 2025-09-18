@@ -28,11 +28,14 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
@@ -95,6 +98,7 @@ fun Cardfolio() {
     var hobby by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
     val outlineColor = MaterialTheme.colorScheme.surface
+    var isEditing by remember { mutableStateOf(true) }
 
     Box(
         contentAlignment = Alignment.Center,
@@ -138,6 +142,27 @@ fun Cardfolio() {
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
+                AssistChip(
+                    onClick = {
+                        isEditing = !isEditing
+                    },
+                    label = {
+                        Text(if (isEditing) stringResource(R.string.status_editing)
+                        else stringResource(R.string.status_locked))
+//                            if (isEditing) "Editing" else "Locked"
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = if (isEditing) {
+                                Icons.Default.Edit
+                            } else {
+                                Icons.Default.Lock
+                            },
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                )
             }
             HorizontalDivider(color = outlineColor)
             Column(
@@ -151,6 +176,7 @@ fun Cardfolio() {
                     onValueChange = {name = it},
                     label = {Text(stringResource(id = R.string.card_name_label))},
                     leadingIcon = {Icon(Icons.Default.Person, contentDescription = null)},
+                    enabled = isEditing,
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -159,6 +185,7 @@ fun Cardfolio() {
                     onValueChange = {hobby = it},
                     label = {Text(stringResource(id = R.string.card_hobby_label))},
                     leadingIcon = {Icon(Icons.Default.Favorite, contentDescription = null)},
+                    enabled = isEditing,
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -172,8 +199,35 @@ fun Cardfolio() {
                     label = {Text(stringResource(id = R.string.card_age_label))},
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     leadingIcon = {Icon(Icons.Default.Info, contentDescription = null)},
-                    modifier = Modifier.fillMaxWidth()
+                    enabled = isEditing,
+                    modifier = Modifier.fillMaxWidth(),
+                    supportingText = { if (isEditing)
+                        Text(stringResource(id = R.string.age_warning)) }
                 )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    OutlinedButton(
+                        onClick = { isEditing = true },
+                        enabled = !isEditing
+                    ) {
+                        Icon(Icons.Default.Edit, contentDescription = null)
+                        Spacer(Modifier.width(8.dp))
+                        Text(stringResource(id = R.string.button_edit))
+                    }
+
+                    Spacer(Modifier.width(12.dp))
+
+                    Button(
+                        onClick = { isEditing = false },
+                        enabled = isEditing
+                    ) {
+                        Icon(Icons.Default.Check, contentDescription = null)
+                        Spacer(Modifier.width(8.dp))
+                        Text(stringResource(id = R.string.button_save))
+                    }
+                }
             }
         }
     }

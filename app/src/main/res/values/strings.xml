@@ -5,4 +5,10 @@
     <string name="card_name_label">Name</string>
     <string name="card_hobby_label">Hobby</string>
     <string name="card_age_label">Age</string>
+    <string name="age_warning">Numbers only</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_save">Save</string>
+    <string name="status_editing">Editing</string>
+    <string name="status_locked">Locked</string>
+    <string name="button_show">Show</string>
 </resources>
