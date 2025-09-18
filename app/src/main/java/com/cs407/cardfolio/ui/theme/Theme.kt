@@ -14,10 +14,10 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-val LightGradientTop = Color(0xFFE0E0E0)
-val LightGradientBottom = Color(0xFFFFCDD2)
-val DarkGradientTop = Color(0xFFBBDEFB)
-val DarkGradientBottom = Color(0xFF424242)
+//val LightGradientTop = Color(0xFFE0E0E0)
+//val LightGradientBottom = Color(0xFFFFCDD2)
+//val DarkGradientTop = Color(0xFFBBDEFB)
+//val DarkGradientBottom = Color(0xFF424242)
 
 data class CustomColors(
     val gradientTop: Color,
